@@ -1,0 +1,9 @@
+{
+  "api_base_url": "https://test-indo-zrzc.fintopia.tech",
+  "swim_lane_id": "",
+  "default_upload_to_feishu": true,
+  "default_send_notify": true,
+  "default_parallel": true,
+  "feishu_app_id": "cli_a826a4642939d013",
+  "feishu_app_secret": "jZmklxffRqKpcia2xJLMfIEVZokKYavJ"
+}

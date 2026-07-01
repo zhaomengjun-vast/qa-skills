@@ -86,7 +86,7 @@ def cmd_poll(args):
 
 
 def cmd_tapd_title(args):
-    """Query TAPD story title via the zrzc API."""
+    """Query TAPD story title via the impact API."""
     url = f"{args.api_base.rstrip('/')}/api/tapd/story"
     params = urllib.parse.urlencode({"tapd_link": args.tapd_link})
     full_url = f"{url}?{params}"

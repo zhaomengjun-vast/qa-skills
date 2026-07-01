@@ -1,6 +1,6 @@
 ---
-name: zrzc-report
-description: 生成影响范围评估报告。自动提取需求内容，通过 GitNexus 分析代码变更影响范围，按规则识别各类改动，填充模版并输出飞书文档 Markdown。触发词：影响范围评估、ZRZC、变更分析报告。
+name: impact-report
+description: 生成影响范围评估报告。自动提取需求内容，通过 GitNexus 分析代码变更影响范围，按规则识别各类改动，填充模版并输出飞书文档 Markdown。触发词：影响范围评估、impact、变更分析报告。
 ---
 
 # 影响范围评估报告生成

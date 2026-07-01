@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""准入准出 API 客户端 - 提交分析请求、轮询结果、查询 TAPD 标题"""
+"""影响范围评估 API 客户端 - 提交分析请求、轮询结果、查询 TAPD 标题"""
 
 import argparse
 import json
@@ -106,7 +106,7 @@ def cmd_task_status(args):
 def main():
     import urllib.parse
 
-    parser = argparse.ArgumentParser(description="准入准出 API 客户端")
+    parser = argparse.ArgumentParser(description="影响范围评估 API 客户端")
     sub = parser.add_subparsers(dest="command")
 
     # analyze

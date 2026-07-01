@@ -1,9 +1,9 @@
 ---
 name: zrzc-report
-description: 生成准入准出报告。自动提取项目上下文、TAPD 信息，通过 GitNexus 分析代码变更影响范围，按规则识别各类改动，填充模版并输出飞书文档 Markdown。触发词：准入准出、ZRZC、变更分析报告。
+description: 生成影响范围评估报告。自动提取需求内容，通过 GitNexus 分析代码变更影响范围，按规则识别各类改动，填充模版并输出飞书文档 Markdown。触发词：影响范围评估、ZRZC、变更分析报告。
 ---
 
-# 准入准出报告生成
+# 影响范围评估报告生成
 
 ## 前置条件
 
@@ -424,7 +424,7 @@ git status --porcelain             # 未提交变更检查
 使用 AskQuestion 或直接向用户展示参数清单请求确认：
 
 ```
-准入准出参数确认：
+影响范围评估参数确认：
 - 仓库名称 (repo): {repo}
 - 当前分支 (branch): {branch}
 - 基准分支 (base_branch): {base_branch}
@@ -740,7 +740,7 @@ CallMcpTool: user-gitnexus / detect_changes
 
 ### 5e. Cursor 本地分析降级
 
-本节是**最后手段**，仅当 **GitNexus 主路径已尽力**（含在 `${PROJECT_ROOT}` 执行 `npx gitnexus analyze`，必要时加 `--force`，仍无法得到足够符号级结论或 `GITNEXUS_AVAILABLE=false`）时，才允许**主要依赖**本节完成准入准出中的「变更入口 / 调用链」类结论。
+本节是**最后手段**，仅当 **GitNexus 主路径已尽力**（含在 `${PROJECT_ROOT}` 执行 `npx gitnexus analyze`，必要时加 `--force`，仍无法得到足够符号级结论或 `GITNEXUS_AVAILABLE=false`）时，才允许**主要依赖**本节完成影响范围评估中的「变更入口 / 调用链」类结论。
 
 > **⚠️ 再次强调**：以下任何理由都**不构成**跳过 GitNexus 尝试步骤而直接使用本节的正当理由：
 > - "变更很简单，只改了几行"
@@ -931,13 +931,13 @@ FILTERED_FILES=$(git diff --name-only ${OLDEST_FEATURE_COMMIT}^..${NEWEST_FEATUR
 
 ### 报告一级标题（H1）
 
-报告首行 H1 **不得**沿用 `template.md` 的占位标题「影响面评估模版」，必须替换为 **从 PRD 提取的本次需求名称 + 「影响面评估」**：
+报告首行 H1 **不得**沿用 `template.md` 的占位标题「影响范围评估模版」，必须替换为 **从 PRD 提取的本次需求名称 + 「影响范围评估」**：
 
 ```markdown
-# {TITLE} 影响面评估
+# {TITLE} 影响范围评估
 ```
 
-例如需求名为「App端 用户体系迁移（Web→App打通）」时，H1 为 `# App端 用户体系迁移（Web→App打通） 影响面评估`。
+例如需求名为「App端 用户体系迁移（Web→App打通）」时，H1 为 `# App端 用户体系迁移（Web→App打通） 影响范围评估`。
 
 
 
@@ -1051,9 +1051,9 @@ TAPD链接：{tapd_link}
 
 ### 检查项 0：一级标题（H1）
 
-确认报告首行 H1 **已替换**为「{需求名称} 影响面评估」，而**非**模版占位标题「影响面评估模版」：
+确认报告首行 H1 **已替换**为「{需求名称} 影响范围评估」，而**非**模版占位标题「影响范围评估模版」：
 
-- H1 == `# 影响面评估模版` → **阻塞**，改为 `# {TITLE} 影响面评估` 后重新校验
+- H1 == `# 影响范围评估模版` → **阻塞**，改为 `# {TITLE} 影响范围评估` 后重新校验
 - H1 为空或未含需求名称 → **阻塞**，补全需求名称
 
 ### 检查项 1：章节完整性
@@ -1136,7 +1136,7 @@ TAPD链接：{tapd_link}
 将完整报告 Markdown 写入本地文件：
 
 ```bash
-REPORT_FILE="<skill-root>/output/${TITLE}-准入准出报告.md"
+REPORT_FILE="<skill-root>/output/${TITLE}-影响范围评估报告.md"
 mkdir -p "<skill-root>/output"
 ```
 
@@ -1150,7 +1150,7 @@ mkdir -p "<skill-root>/output"
 2. 完整的 Markdown 内容（可直接复制粘贴到飞书文档）
 
 ```
-✓ 准入准出报告已生成：
+✓ 影响范围评估报告已生成：
   文件路径：${REPORT_FILE}
 
 报告内容如下（可直接粘贴到飞书文档）：
@@ -1167,7 +1167,7 @@ mkdir -p "<skill-root>/output"
 > 默认目标 wiki 节点（`FEISHU_WIKI_URL`，来自 Step 1 配置）：
 > `https://a9ihi0un9c.feishu.cn/wiki/Z8VVwEOZVizVVCk6ZrjcTtFMnwd`
 
-通过飞书 CLI（`lark-cli`，安装时已注册其飞书文档工具能力）执行：在 `FEISHU_WIKI_URL` 节点同级创建一篇标题为 `${TITLE}-准入准出报告` 的新文档，并写入 `${REPORT_FILE}` 的 Markdown 内容。鉴权使用 Step 0e 完成的 `lark-cli auth login` 用户授权，无需再传 `app_id` / `app_secret`。
+通过飞书 CLI（`lark-cli`，安装时已注册其飞书文档工具能力）执行：在 `FEISHU_WIKI_URL` 节点同级创建一篇标题为 `${TITLE}-影响范围评估报告` 的新文档，并写入 `${REPORT_FILE}` 的 Markdown 内容。鉴权使用 Step 0e 完成的 `lark-cli auth login` 用户授权，无需再传 `app_id` / `app_secret`。
 
 上传成功 → 记录返回的飞书文档链接为 `FEISHU_DOC_URL`，向用户展示。上传失败 → 不阻塞，报告已在本地生成。
 
@@ -1175,7 +1175,7 @@ mkdir -p "<skill-root>/output"
 
 ## Step 9:（可选）上报结果
 
-仅当 Step 8c 上传飞书成功后，才将报告信息上报到准入准出服务。如果未上传飞书，跳过本步骤。
+仅当 Step 8c 上传飞书成功后，才将报告信息上报到影响范围评估服务。如果未上传飞书，跳过本步骤。
 
 ### 9a. 构建请求参数
 
